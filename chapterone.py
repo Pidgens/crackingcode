@@ -68,8 +68,8 @@ def ifAnagram(string1, string2):
 	return True
 
 print("\nQuestion 4 \n")
-#print(ifAnagram("dog", "god"))
-print(ifAnagram("kid", "kil"))
+print(ifAnagram("dog", "god"))
+# print(ifAnagram("kid", "kil"))
 
 
 def replaceSpace(string):
