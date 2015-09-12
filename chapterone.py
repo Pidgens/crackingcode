@@ -24,7 +24,7 @@ print(unique('dude'))
 print(unique('kid champ l'))
 
 def revcStyle(string):
-	return null
+	return None
 
 def removeDup(string):
 	if len(string) < 2:
@@ -48,28 +48,35 @@ print("\nQuestion 3\n")
 print(removeDup("follow up"))
 
 def ifAnagram(string1, string2):
-	if len(string1) != len(string2):
-		return False
-	charArray1 = [0] * 256
-	charArray2 = [0] * 256
-	string1Array = list(string1)
-	string2Array = list(string2)
-	for i, element1 in enumerate(string1Array):
-		if element1 is not ' ':
-			charArray1[ord(element1)] += 1
-	for element2 in string2Array:
+    if len(string1) != len(string2):
+        return False
+    strArray = [0] * 256
+    uniquenumChars = 0
+    completedChars = 0
+    str_one = list(string1)
+    for c_item in str_one:
+        print 'C_ITEM:%s' % c_item
+        if strArray[ord(c_item)] == 0:
+            ++uniquenumChars
+        ++strArray[ord(c_item)]
+    print strArray
+    for str2_index in range(0, len(string2)):
+        c = ord(string2[str2_index])
+        print 'C: %s' % c
+        if strArray[c]==0:
+            return False
+        --strArray[c]
+        if strArray[c] == 0:
+            ++completedChars
+            print 'STR2_INDEX %s' % str2_index
+            if completedChars == uniquenumChars:
+                return str2_index == len(string2)-1
+    return False
 
-		if element2 is not ' ':
-			print ord(element2)
-			print charArray2
-			if charArray2[ord(element2)] > charArray1[ord(element2)]:
-				return False
-			charArray2[ord(element2)] += 1
-	return True
 
 print("\nQuestion 4 \n")
-print(ifAnagram("dog", "god"))
-# print(ifAnagram("kid", "kil"))
+#print(ifAnagram("dog", "god"))
+print(ifAnagram("kid", "kid"))
 
 
 def replaceSpace(string):
