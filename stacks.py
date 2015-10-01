@@ -1,5 +1,7 @@
 __author__ = 'Derek Chiu'
 
+# LIFO ( Last in First out.)
+
 class Stack:
     def __init__(self):
         self.items = []
