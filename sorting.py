@@ -37,4 +37,14 @@ def shell(z_list):
     sublistCount=len(z_list)/2
     while (sublistCount > 0):
         for start_i in range(sublistCount):
-            
+            gapInsertionSort(z_list, start_i, sublistCount)
+        sublistCount = sublistCount / 2
+
+def gapInsertionSort(z_list, start, gap):
+    for i in range(start+gap, len(z_list), gap):
+        currentValue = z_list[i]
+        pos = i
+        while pos >= gap and z_list[pos] > currentValue:
+            z_list[pos] = z_list[pos - gap]
+            pos = pos - gap
+        z_list[pos] = currentValue
