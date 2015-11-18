@@ -44,7 +44,61 @@ def gapInsertionSort(z_list, start, gap):
     for i in range(start+gap, len(z_list), gap):
         currentValue = z_list[i]
         pos = i
-        while pos >= gap and z_list[pos] > currentValue:
+        while pos >= gap and z_list[pos-gap] > currentValue:
             z_list[pos] = z_list[pos - gap]
             pos = pos - gap
         z_list[pos] = currentValue
+
+def mergeSort(z_list):
+    if len(z_list) > 1:
+        mid = len(z_list)/2
+        leftHalf = z_list[:mid]
+        rightHalf = z_list[mid:]
+        mergeSort(leftHalf)
+        mergeSort(rightHalf)
+
+        # k - index of z_list
+        # i - index of left
+        # j - index of right
+        i,j,k=0,0,0
+        while i < len(leftHalf) and j < len(rightHalf):
+            if leftHalf[i] < rightHalf[j]:
+                z_list[k] = leftHalf[i]
+                i+= 1
+            else:
+                z_list[k] = rightHalf[j]
+                j+=1
+            k+=1
+
+        while i < len(leftHalf):
+            z_list[k] = leftHalf[i]
+            i+= 1
+            k+= 1
+
+        while j < len(rightHalf):
+            z_list[k] = rightHalf[j]
+            j+= 1
+            k+= 1
+
+def heapSort(z_lst):
+    length = len(z_lst)
+    leastParent = length/2
+    for i in range(leastParent, -1, -1):
+        heapify(list, i, length)
+    for i in range(length, 0 , -1):
+        swap( list, 0, i)
+        heapify(list, 0, i-1)
+
+def heapify(z_lst, first, last):
+    largest = 2 * first + 1
+    if largest < last and z_lst[largest] < z_lst[largest+1]:
+        swap( z_lst, largest, first)
+        first = largest
+        largest = 2 * first + 1
+    else:
+        return
+
+def swap(list, x, y):
+    tmp = list[x]
+    list[x] = list[y]
+    list[y] = tmp
