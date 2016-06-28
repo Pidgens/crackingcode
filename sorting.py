@@ -79,6 +79,9 @@ def mergeSort(z_list):
             z_list[k] = rightHalf[j]
             j+= 1
             k+= 1
+    return z_list
+
+print 'MERGESORT', mergeSort([3,5,4,2,1])
 
 def quicksort(myList, start, end):
     if start < end:
@@ -97,7 +100,7 @@ def partition(myList, start, end):
     while not done:
         while left <= right and myList[left] <= pivot:
             left = left + 1
-        while myList[right] >= pivot and right >=left:
+        while left <= right and myList[right] >= pivot:
             right = right -1
         if right < left:
             done= True
@@ -112,6 +115,11 @@ def partition(myList, start, end):
     myList[right]=temp
     return right
 
+def qs(myList):
+    return quicksort(myList, 0, len(myList)- 1)
+
+a = [3,5,4,2,1]
+print 'QUICKSORT', qs(a)
 
 def heapSort(z_lst):
     length = len(z_lst)

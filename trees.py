@@ -3,7 +3,6 @@ class Node:
         self.l = None
         self.r = None
         self.v = val
-        self.visited = True
 
 class Tree:
     def __init__(self):
@@ -45,8 +44,11 @@ class Tree:
             self._find(val, node.r)
 
     def deleteTree(self):
-        # garbage collector will do this for us. 
+        # garbage collector will do this for us.
         self.root = None
+
+    def height(self):
+        return getHeight(self.root)
 
     def printTree(self):
         if(self.root != None):
@@ -58,10 +60,8 @@ class Tree:
             print str(node.v) + ' '
             self._printTree(node.r)
 
-
-def preorder(node):
+def getHeight(node):
     if node is None:
-        return
-    print node.v
-    preorder(node.l)
-    preorder(node.r)
+        return 0
+    else:
+        return max(getHeight(node.l), getHeight(node.r)) + 1

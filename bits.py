@@ -3,57 +3,71 @@ __author__ = 'derekchiu'
 import math
 import decimal
 
-def updateBit(num, i, value):
-    mask = ~(1 << i)
-    return (mask & num) | (value << i)
+def insertBits(n, m, i, j):
 
-# number one
-def insertBits(n, m, posi, posj):
-    newM = (m << posi)
-    return newM | n
+    ones = ~0
+    left = ones << (j+1)
+    right = (1 << i) - 1
+    mask = left | right
+    n_cleared = n & mask
+    m_shifted = m << i
+    return n_cleared | m_shifted
 
-# number two
-def fractiontoBinary(number):
-    first = int(number)
-    start = float(.5)
-    go = True
-    secondPart = ''
-    firstPart = bin(first) # in string form
-    second = number - int(number)
-    while go:
+# Given a positive integer, print the next smallest and the next largest number
+# that have the same number of 1 bits in their binary representation
 
-        if (second - start) >= 0:
-            secondPart += '1'
-            second = second - start
-            if (second == 0):
-                go = False
-        else:
-            secondPart += '0'
-        start = start/float(2)
+def getPrev(number):
+    temp = number
+    c0 = 0
+    c1 = 0
+    while (temp & 1) == 1:
+        c1 += 1
+        temp >>= 1
+    if temp == 0:
+        return -1
+    while (temp & 1) == 0 and temp != 0:
+        c0+=1
+        temp>>=1
+    p = c0 + c1
+    number &= ((~0) << (p+1))
+    mask = (1 << (c1 + 1))-1
+    number |= mask << (c0 - 1)
+    return number
 
-    x = firstPart + '.' + secondPart
-    return x
+def getNext(number):
+    temp = number
+    c0 = 0
+    c1 = 0
+    while (temp & 1) == 0 and  temp != 0:
+        c0 += 1
+        temp >>= 1
+    while (temp & 1) == 1:
+        c1 += 1
+        temp >>= 1
+    p = c0 + c1
+    number |= 1 << p
+    number &= ((~0) << (p))
+    mask = (1 << (c1 - 1)) - 1
+    number |= mask
+    return number
 
+def requiredBits(x, y):
+    calc = x ^ y
+    count = 0
+    while calc != 0:
+        if (calc & 1) == 1:
+            count += 1
+        calc >>= 1
+    return count
 
+def prime(num):
+    if (num<2):
+        return False
+    sqrt = num**.5
+    i = 2
+    while i <= sqrt:
+        if (num % i) == 0:
+            return False
+        i += 1
+    return True
 
-
-
-def testBits():
-    #########################################################################################################
-    assert insertBits(1024, 19, 2, 6) == 1100, \
-        "Got %d" % insertBits(1024, 19, 2, 6)
-    assert insertBits(9, 3, 1, 2) == 15, "Got %d" % insertBits(9, 3, 1, 2)
-    print "PASSED PROBLEM 1"
-    #########################################################################################################
-    assert fractiontoBinary(10.5) == "0b1010.1", "GOT %s" % fractiontoBinary(10.5)
-    assert fractiontoBinary(10.75) == "0b1010.11", "GOT %s" % fractiontoBinary(10.75)
-    assert fractiontoBinary(10.625) == "0b1010.101", "GOT %s" % fractiontoBinary(10.625)
-    print "PASSED PROBLEM 2"
-    #########################################################################################################
-
-    print "PASSED PROBLEM 3"
-    #########################################################################################################
-
-
-
-testBits()

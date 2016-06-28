@@ -31,4 +31,20 @@ def b_search_iter(arr,  value):
                 lower = mid + 1
     return -1
 
-print b_search_iter(l1, 5)
+
+def bs(array, value):
+    first = 0
+    last = len(array)-1
+    found = False
+
+    while not found and first <= last:
+        mid = (first + last)//2
+        if array[mid] == value:
+            return True
+        elif value > array[mid]:
+            first = mid+1
+        else:
+            last = mid-1
+    return found
+
+print bs([1,2,3,4,5], 5)

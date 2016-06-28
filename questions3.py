@@ -4,9 +4,9 @@
 
 import ll
 
-t1 = False
+t1 = True
 t2 = False
-t3 = True
+t3 = False
 
 
 def deleteMiddleNodeLinkedList(middle_node):
@@ -22,7 +22,7 @@ if t1:
     linkedList.insert(3)
     linkedList.insert(4)
     linkedList.insert(5)
-    print linkedList.head.getData()
+    print linkedList.head.getNext().getNext().getData()
 
 def partitionLinkedListX(head_node , x):
     beforeStart = None
