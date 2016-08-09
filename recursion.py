@@ -31,4 +31,31 @@ def permutations(s1):
             # print 'perm', perm
     return perm
 
-print permutations("ABC")
+def gcd(a, b):
+    if b > a:
+        if b % a == 0:
+            return a
+        else:
+            return gcd(b % a, a)
+    else:
+        if a % b == 0:
+            return b
+        else:
+            return gcd(b, a % b)
+
+def pascalsTriangle(n):
+    if n == 0:
+        return []
+    elif n == 1:
+        return [[1]]
+    else:
+        newRow = [1]
+        result = pascalsTriangle(n-1)
+        prevRow = result[-1]
+        for i in range(len(prevRow)-1):
+            newRow.append(prevRow[i] + prevRow[i+1])
+        newRow += [1]
+        result.append(newRow)
+    return result
+
+print pascalsTriangle(3)
